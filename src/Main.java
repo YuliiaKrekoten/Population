@@ -28,16 +28,10 @@ public class Main {
         System.out.println(conscripts);
 
 
-
-        List<Person>  potentialEmployees = persons.stream()
+        List<Person> potentialEmployees = persons.stream()
                 .filter(person -> person.getEducation() == Education.HIGHER)
-                .filter(person -> {
-                    if(person.getSex() == Sex.MAN) {
-                        return person.getAge() >= 18 && person.getAge() <= 65;
-                    } else {
-                        return person.getAge() >= 18 && person.getAge() <= 60;
-                    }
-                })
+                .filter(person -> person.getAge() >= 18 && person.getAge() <= 65
+                        || (person.getSex() == Sex.WOMAN && person.getAge() <= 60))
                 .sorted(Comparator.comparing(Person::getFamily))
                 .collect(Collectors.toList());
         System.out.println(potentialEmployees);
